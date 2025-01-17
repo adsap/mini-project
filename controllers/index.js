@@ -12,8 +12,15 @@ const ApiController = {
       const api = await axios.get("https://jsonplaceholder.typicode.com/posts");
       pagination.total_data = api.data.length;
       pagination.total_pages = Math.ceil(api.data.length / size);
-      const result = api.data.slice(offset, offset + Number(size));
+      const data = api.data.slice(offset, offset + Number(size));
 
+      const result = [];
+      data.forEach((item) => {
+        result.push({
+          id: item.id,
+          title: item.title
+        })
+      });
 
       res.json({
         message: 'success',
